@@ -1,5 +1,6 @@
 package com.alma.ticket;
 
+import com.alma.ticket.config.JpaConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,6 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TicketApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TicketApplication.class, args);
+		SpringApplication.run(new Class<?>[]{TicketApplication.class, JpaConfig.class}, args);
 	}
 }
