@@ -79,7 +79,7 @@ public class HibernateConfig {
         factoryBean.afterPropertiesSet();
         //
         SessionFactory sf = factoryBean.getObject();
-        System.out.println("## getSessionFactory: " + sf);
+        System.out.println("## getSessionFactory: " + sf);// todo log it!
         return sf;
     }
 
