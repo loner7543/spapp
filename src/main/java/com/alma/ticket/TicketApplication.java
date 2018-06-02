@@ -1,13 +1,23 @@
 package com.alma.ticket;
 
-import com.alma.ticket.config.JpaConfig;
+import com.alma.ticket.config.HibernateConfig;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 
 @SpringBootApplication
+
+@EnableAutoConfiguration(exclude = { //
+		DataSourceAutoConfiguration.class, //
+		DataSourceTransactionManagerAutoConfiguration.class, //
+		HibernateJpaAutoConfiguration.class })
+
 public class TicketApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(new Class<?>[]{TicketApplication.class, JpaConfig.class}, args);
+		SpringApplication.run(new Class<?>[]{TicketApplication.class, HibernateConfig.class}, args);
 	}
 }

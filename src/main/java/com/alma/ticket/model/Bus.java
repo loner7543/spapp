@@ -3,12 +3,13 @@ package com.alma.ticket.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@SequenceGenerator(name = "bus_generator", sequenceName = "bus_sequence")
 @Entity
 @Table(name = "bus")
 public class Bus implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "bus_generator")
     @Column(name = "id",nullable = false)
     private Long id;
 
