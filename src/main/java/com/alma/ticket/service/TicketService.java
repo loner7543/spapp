@@ -2,10 +2,8 @@ package com.alma.ticket.service;
 
 import com.alma.ticket.model.Ticket;
 import com.alma.ticket.model.Trip;
-import com.alma.ticket.model.User;
 
 import java.util.List;
-import java.util.function.LongFunction;
 
 /*
 * Интерфейс сервиса для работы с билетами
@@ -20,7 +18,7 @@ public interface TicketService {
     /*
     * Создает бронь на билет
     * */
-    void createReservation(Long ticketId, User user);
+    void createReservation(Long ticketId, Long userId);
 
     /**
     * отменяет бронь на билет

@@ -25,7 +25,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void createReservation(Long ticketId, User user) {
+    public void createReservation(Long ticketId, Long user) {
         ticketDAO.createReservation(user,ticketId);
     }
 

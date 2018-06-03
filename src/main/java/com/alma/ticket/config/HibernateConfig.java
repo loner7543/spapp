@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = TicketApplication.class)
 public class HibernateConfig {
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HibernateConfig.class);
 
     @Value("${spring.datasource.driver-class-name}")
     private String driver;
@@ -57,7 +58,6 @@ public class HibernateConfig {
         dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
-
         return dataSource;
     }
 
@@ -77,16 +77,14 @@ public class HibernateConfig {
         factoryBean.setDataSource(dataSource);
         factoryBean.setHibernateProperties(properties);
         factoryBean.afterPropertiesSet();
-        //
-        SessionFactory sf = factoryBean.getObject();
-        System.out.println("## getSessionFactory: " + sf);// todo log it!
-        return sf;
+        return factoryBean.getObject();
     }
 
     @Autowired
     @Bean(name = "transactionManager")
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
+        logger.info("tx- менеджер создан");
         return transactionManager;
     }
 }

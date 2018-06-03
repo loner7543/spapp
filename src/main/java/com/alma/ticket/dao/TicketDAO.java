@@ -4,19 +4,21 @@ import com.alma.ticket.model.Ticket;
 import com.alma.ticket.model.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
 @Transactional
 public class TicketDAO extends BaseDAO {
 
+    private static final Logger logger = LoggerFactory.getLogger(TicketDAO.class);
     /*
     * Возвращает все билеты указанного пользователя
     * */
@@ -25,9 +27,15 @@ public class TicketDAO extends BaseDAO {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Ticket> criteria = builder.createQuery(Ticket.class);
         Root<Ticket> root = criteria.from(Ticket.class);
-        criteria.select(root).where(builder.equal(root.get("id"), userId));// select * from ticket where user_ID = PARAM
+        criteria.select(root).where(builder.equal(root.get("user"), userId));// select * from ticket where user_ID = PARAM
         Query<Ticket> q=session.createQuery(criteria);
         List<Ticket> resList = q.getResultList();
+        if (resList.size()!=0){
+            logger.info("Билеты получены");
+        }
+        else {
+            logger.info("Список билетов пуст");
+        }
         return resList;
     }
 
@@ -39,17 +47,20 @@ public class TicketDAO extends BaseDAO {
        Ticket ticket = session.get(Ticket.class,ticketId);
        ticket.setUser(null);
        session.update(ticket);
+       logger.info("Бронь отменена");
    }
 
 
    /*
    * Создает бронь на билет
    * */
-   public void createReservation(User user,Long ticketId){
+   public void createReservation(Long userId,Long ticketId){
        Session session = sessionFactory.getCurrentSession();
        Ticket ticket = session.get(Ticket.class,ticketId);
+       User user = session.get(User.class,userId);
        ticket.setUser(user);
        session.update(ticket);
+       logger.info("Бронь создана");
    }
 
 
@@ -57,7 +68,7 @@ public class TicketDAO extends BaseDAO {
    * поиск рйсов
    * */
    public List searchTrip(String param){
-       List trips  = Collections.emptyList();
+       List trips;
        Query query;
        Session session = sessionFactory.getCurrentSession();
        if (tryParseInt(param)){
@@ -70,6 +81,10 @@ public class TicketDAO extends BaseDAO {
                    .setParameter("tp",param);
        }
        trips = query.getResultList();
+       if (trips.size()==0){
+           logger.info("Рейсы не найдены");
+       }
+       else logger.info("Рейсы найдены");
        return trips;
    }
 

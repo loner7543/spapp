@@ -14,3 +14,6 @@ insert into trip_point values(3,'Саратов',2);
 
 insert into ticket values(2,555,555,2,1);
 insert into ticket values(3,666,666,2,1);
+
+
+select * from ticket where user_id = 1
