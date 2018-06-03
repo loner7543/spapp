@@ -45,4 +45,42 @@ public class Ticket implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Ticket(int number, int price, Trip trip, User user) {
+        this.number = number;
+        this.price = price;
+        this.trip = trip;
+        this.user = user;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
