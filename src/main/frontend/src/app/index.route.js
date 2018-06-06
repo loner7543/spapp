@@ -18,6 +18,15 @@
            }
          },
          resolve: {
+           freeTickets: function ($http,$location) {
+             // var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/search";
+             var url = $location.protocol() + "://" + $location.host() + ":" + "8080" + "/getFreeTickets";
+             return $http({
+               method: "GET",
+               url: url,
+               params:{}
+             });
+           }
          }
        })
        .state('trip', {

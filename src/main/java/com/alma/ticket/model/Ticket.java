@@ -55,6 +55,10 @@ public class Ticket implements Serializable {
         this.user = user;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public int getNumber() {
         return number;
     }

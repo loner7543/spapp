@@ -1,2 +1,18 @@
+<div class="flashMsg"><flash-message></flash-message></div>
 <h3>Бронирование билетов</h3>
-<button ng-click="addItem()" class="btn btn-primary">Забронировать</button>
+
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Номер билета</th>
+      <th>Цена</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="ticket in tickets">
+      <td>{{ticket.number}}</td>
+      <td>{{ticket.price}}</td>
+      <td><button ng-click="createReservation()" class="btn btn-primary">Забронировать</button></td>
+    </tr>
+    </tbody>
+  </table>

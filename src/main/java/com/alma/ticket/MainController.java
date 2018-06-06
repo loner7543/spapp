@@ -3,6 +3,7 @@ package com.alma.ticket;
 import com.alma.ticket.model.Ticket;
 import com.alma.ticket.model.Trip;
 import com.alma.ticket.service.TicketService;
+import com.alma.ticket.vo.TicketVO;
 import com.alma.ticket.vo.TripVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,20 @@ public class MainController {
         return tripVOList;
     }
 
+    /*
+    * Возвращает все незабронированные билеты
+    * */
+    @RequestMapping(value = "/getFreeTickets", method = RequestMethod.GET)
+    public  @ResponseBody List<TicketVO> getFreeTickets(){
+        List<Ticket> free = ticketService.getFreeTickets();
+        List<TicketVO> ticketVOList = new ArrayList<>();
+        for (Ticket ticket:free){
+            TicketVO vo = new TicketVO(ticket.getId(),ticket.getNumber(),ticket.getPrice());
+            ticketVOList.add(vo);
+        }
+        return ticketVOList;
+    }
+
     @RequestMapping(value = "/createReservation", method = RequestMethod.POST)
     public void createReservation(@RequestParam(value = "ticketId") Long ticketId,
                                   @RequestParam(value = "userId") Long userId) {
@@ -43,8 +58,14 @@ public class MainController {
         ticketService.cancelReservation(ticketId);
     }
 
-    @RequestMapping(value = "/load", method = RequestMethod.POST)
-    public void loadTickets(@RequestParam(value = "userId") Long userId) {
+    @RequestMapping(value = "/load", method = RequestMethod.GET)
+    public @ResponseBody List<TicketVO> loadTickets(@RequestParam(value = "userId") Long userId) {
         List<Ticket> tickets = ticketService.getAllTicketsForUser(userId);
+        List<TicketVO> ticketVOList = new ArrayList<>();
+        for (Ticket ticket:tickets){
+            TicketVO vo = new TicketVO(ticket.getId(),ticket.getNumber(),ticket.getPrice());
+            ticketVOList.add(vo);
+        }
+        return ticketVOList;
     }
 }

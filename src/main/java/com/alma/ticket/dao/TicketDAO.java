@@ -89,7 +89,6 @@ public class TicketDAO extends BaseDAO {
        trips.forEach(trip->{
            trip.getTripPoints().size();
            trip.getTickets().size();
-           trip.getTickets().forEach(ticket -> ticket.getUser().getUserName());
        });
        return trips;
    }
@@ -101,6 +100,10 @@ public class TicketDAO extends BaseDAO {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public List<Ticket> getFreeTickets(){
+       return null;
     }
 
 

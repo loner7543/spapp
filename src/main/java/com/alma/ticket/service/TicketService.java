@@ -29,4 +29,9 @@ public interface TicketService {
     * Возвращает все билеты пользователя
     * */
     List<Ticket>  getAllTicketsForUser(Long userId);
+
+    /*
+    * Возвращает свободные
+    */
+    List<Ticket> getFreeTickets();
 }

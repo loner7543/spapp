@@ -1,28 +1,37 @@
 (function () {
   angular
     .module('frontend')
-    .controller('TicketsController', TicketsController)
+    .controller('TicketsController', TicketsController);
 
   /** @ngInject */
-  function TicketsController($scope, $http, $state, $location) {
+  function TicketsController($scope, $http, $state, $location, UtilsFunctionsFactory) {
     var vm = this;
 
-    $scope.showBuyerDialog = function() {
-      console.log($location);
+    $scope.ticketsParams = {
+      userId: 1// todo брать идентификатов или др инфо о пользовател из SpringSecurity
+    };
+
+    $scope.showUserTickets = function () {
+      // var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/search";
+      var url = $location.protocol() + "://" + $location.host() + ":" + "8080" + "/load";
       $http({
         method: "GET",
-        url: "http://localhost:8080/ftest",
-        params: {}
+        url: url,
+        params: $scope.ticketsParams
       }).then(function (resp) {
-          console.log("Покупатель добавлен");
+          UtilsFunctionsFactory.showFlashMessage('success', "Билеты загружены");
+          $scope.tickets = resp.data;
           console.log("Success resp", resp);
         },
         function (result) {
-          console.log("Покупатель не добавлен");
+          UtilsFunctionsFactory.showFlashMessage('danger', "Ошибка при загрузке билетов");
           console.error(result, result.data);
         });
+    };
+
+    $scope.cancelReservation = function () {
+
     };
   }
 
 })();
-// gttp data - тело запроса bodyParam

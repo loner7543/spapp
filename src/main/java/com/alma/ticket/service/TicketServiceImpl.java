@@ -38,4 +38,9 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> getAllTicketsForUser(Long userId) {
         return ticketDAO.getAllTicketsByUser(userId);
     }
+
+    @Override
+    public List<Ticket> getFreeTickets() {
+        return ticketDAO.getFreeTickets();
+    }
 }

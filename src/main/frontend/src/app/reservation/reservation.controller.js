@@ -4,20 +4,22 @@
     .controller('ReservationController', ReservationController);
 
   /** @ngInject */
-  function ReservationController($scope,$http) {
-    var vm  =this;
+  function ReservationController($scope,$http, $location,UtilsFunctionsFactory,freeTickets) {
+    console.log(freeTickets);
+    var vm  = this;
 
-    $scope.addItem = function() {
-      console.log("WORK")
+    $scope.createReservation = function() {
+      // var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/search";
+      var url = $location.protocol() + "://" + $location.host() + ":" + "8080" + "/createReservation";
       $http({
         method: "GET",
-        url: "http://localhost:8080/ftest",
+        url: url,
         params: {}
       }).then(function (resp) {
-          console.log("Покупатель добавлен");
+          UtilsFunctionsFactory.showFlashMessage('success', "Бонь создана");
         },
         function (result) {
-          console.log("Покупатель не добавлен");
+          UtilsFunctionsFactory.showFlashMessage('danger', "Бронь не создана");
         });
     }
   }
