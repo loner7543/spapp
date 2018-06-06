@@ -1,5 +1,7 @@
 package com.alma.ticket.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -34,12 +36,14 @@ public class Trip implements Serializable {
     * Рейс содержит в себе список точек следования
     * */
     @OneToMany(mappedBy = "trip",cascade =  CascadeType.ALL,fetch = FetchType.LAZY,targetEntity = TripPoint.class)
+    @JsonManagedReference
     private Set<TripPoint> tripPoints = new HashSet<>();
 
     /*
     * Набор билетов с уникальными номерами для каждого рейса
     * */
     @OneToMany(mappedBy = "trip",cascade = CascadeType.ALL,fetch = FetchType.LAZY,targetEntity = Ticket.class)
+    @JsonManagedReference
     private Set<Ticket> tickets = new HashSet<>();
 
     /*
@@ -56,6 +60,10 @@ public class Trip implements Serializable {
         this.tripPoints = tripPoints;
         this.tickets = tickets;
         this.tripNumber = tripNumber;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getFrom() {

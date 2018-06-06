@@ -1,5 +1,7 @@
 package com.alma.ticket.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -35,6 +37,7 @@ public class Ticket implements Serializable {
     * */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trip_id")
+    @JsonBackReference
     private Trip trip;
 
     /*

@@ -3,13 +3,13 @@ package com.alma.ticket;
 import com.alma.ticket.model.Ticket;
 import com.alma.ticket.model.Trip;
 import com.alma.ticket.service.TicketService;
+import com.alma.ticket.vo.TripVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,28 +17,34 @@ public class MainController {
 
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
     @Autowired
     private TicketService ticketService;
 
-    @RequestMapping("/search")
-    public String index() {
-      List<Trip> trips =   ticketService.searchTrips("Волгоград");
-        return "Greetings from Spring Boot!";
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public @ResponseBody List<TripVO> search(@RequestParam(value = "searchString") String search) {
+        List<Trip> trips = ticketService.searchTrips(search);
+        List<TripVO> tripVOList = new ArrayList<>();
+        for (Trip trip:trips){
+            TripVO vo = new TripVO(trip.getId(),trip.getFrom(),trip.getTo(),trip.getTripNumber());
+            tripVOList.add(vo);
+        }
+        return tripVOList;
     }
 
-    @RequestMapping(value = "/createReservation")
-    public void createReservation() {
-        ticketService.createReservation(1L,1L);
+    @RequestMapping(value = "/createReservation", method = RequestMethod.POST)
+    public void createReservation(@RequestParam(value = "ticketId") Long ticketId,
+                                  @RequestParam(value = "userId") Long userId) {
+        ticketService.createReservation(ticketId, userId);
     }
 
-    @RequestMapping(value = "/cancelReservation")
-    public void cancelReservation() {
-        ticketService.cancelReservation(1L);
+    @RequestMapping(value = "/cancelReservation", method = RequestMethod.DELETE)
+    public void cancelReservation(@RequestParam(value = "ticketId") Long ticketId) {
+        ticketService.cancelReservation(ticketId);
     }
 
-    @RequestMapping(value = "/load")
-    public void loadTickets(){
-      List<Ticket> tickets =  ticketService.getAllTicketsForUser(1L);
-      int i = 1;
+    @RequestMapping(value = "/load", method = RequestMethod.POST)
+    public void loadTickets(@RequestParam(value = "userId") Long userId) {
+        List<Ticket> tickets = ticketService.getAllTicketsForUser(userId);
     }
 }

@@ -1,6 +1,7 @@
 package com.alma.ticket.dao;
 
 import com.alma.ticket.model.Ticket;
+import com.alma.ticket.model.Trip;
 import com.alma.ticket.model.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -67,8 +68,8 @@ public class TicketDAO extends BaseDAO {
    /*
    * поиск рйсов
    * */
-   public List searchTrip(String param){
-       List trips;
+   public List<Trip> searchTrip(String param){
+       List<Trip> trips;
        Query query;
        Session session = sessionFactory.getCurrentSession();
        if (tryParseInt(param)){
@@ -85,6 +86,11 @@ public class TicketDAO extends BaseDAO {
            logger.info("Рейсы не найдены");
        }
        else logger.info("Рейсы найдены");
+       trips.forEach(trip->{
+           trip.getTripPoints().size();
+           trip.getTickets().size();
+           trip.getTickets().forEach(ticket -> ticket.getUser().getUserName());
+       });
        return trips;
    }
 
