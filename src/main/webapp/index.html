@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html ng-app="frontend">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+  <meta charset="utf-8">
+  <title>Shop</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!--<script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>-->
+  <link rel="stylesheet" href="js/lib/bootstrap.min.js">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!--<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">-->
+  <script type="text/javascript" src="js/lib/angular.min.js"></script>
+  <script type="text/javascript" src="js/lib/angular-route.min.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/route.js"></script>
 </head>
-<body>
-<p>test</p>
+<body ng-controller="MainController">
+
+    <button ui-sref="products" class="btn btn-primary menu">Поиск рейса</button><br>
+    <button ui-sref="discounts" class="btn btn-primary menu">Бронирование/Отмена</button><br>
+    <button ui-sref="buyers" class="btn btn-primary menu">Просмотр рейсов</button>
+
+<div ui-view="index"></div>
 </body>
 </html>
