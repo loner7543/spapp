@@ -1,17 +1,17 @@
 (function () {
   angular
     .module('frontend')
-    .controller('ItemController', ItemController);
+    .controller('ReservationController', ReservationController);
 
   /** @ngInject */
-  function ItemController($scope,$http,UtilsFunctionsFactory,ngDialog,$state) {
+  function ReservationController($scope,$http) {
     var vm  =this;
 
     $scope.addItem = function() {
       console.log("WORK")
       $http({
-        method: "POST",
-        url: "http://localhost:8080/ticket/ftest",
+        method: "GET",
+        url: "http://localhost:8080/ftest",
         params: {}
       }).then(function (resp) {
           console.log("Покупатель добавлен");

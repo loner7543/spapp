@@ -8,13 +8,13 @@
   /** @ngInject */
   function routerConfig($stateProvider, $urlRouterProvider) {
      $stateProvider
-       .state('broken', {
-         url: '/broken',
+       .state('reservation', {
+         url: '/reservation',
          views: {
            'index': {
-             templateUrl: 'app/item/item.html',
-             controller: 'ItemController',
-             controllerAs: 'itemCtrl'
+             templateUrl: 'app/reservation/reservation.html',
+             controller: 'ReservationController',
+             controllerAs: 'reservationCtrl'
            }
          },
          resolve: {
@@ -24,9 +24,9 @@
        url: '/trip',
        views: {
          'index': {
-           templateUrl: 'app/buyer/buyer.html',
-           controller: 'BuyerController',
-           controllerAs: 'buyerCtrl'
+           templateUrl: 'app/trip/trip.html',
+           controller: 'TripController',
+           controllerAs: 'tripCtrl'
          }
        },
        resolve: {
@@ -36,9 +36,9 @@
        url: '/tickets',
        views: {
          'index': {
-           templateUrl: 'app/discount/discount.html',
-           controller: 'DiscountController',
-           controllerAs: 'discountCtrl'
+           templateUrl: 'app/tickets/tickets.html',
+           controller: 'TicketsController',
+           controllerAs: 'ticketsCtrl'
          }
        },
        resolve: {}
