@@ -103,7 +103,20 @@ public class TicketDAO extends BaseDAO {
     }
 
     public List<Ticket> getFreeTickets(){
-       return null;
+        Session session = sessionFactory.getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Ticket> criteria = builder.createQuery(Ticket.class);
+        Root<Ticket> root = criteria.from(Ticket.class);
+        criteria.select(root).where(builder.isNull(root.get("user")));// select * from ticket where user_ID = null
+        Query<Ticket> q=session.createQuery(criteria);
+        List<Ticket> resList = q.getResultList();
+        if (resList.size()!=0){
+            logger.info("Свободные билеты получены");
+        }
+        else {
+            logger.info("Свободных билетов нет");
+        }
+        return resList;
     }
 
 

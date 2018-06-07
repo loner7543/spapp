@@ -13,15 +13,21 @@
     };
 
     $scope.searchTrip = function () {
-      // var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/search";
-       var url = $location.protocol()+"://"+$location.host()+":"+"8080"+"/search";
+      var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/search";
+      // var url = $location.protocol()+"://"+$location.host()+":"+"8080"+"/search";
+       console.log(url);
       $http({
         method: "GET",
         url: url,
         params:$scope.tripParams
       }).then(function (resp) {
-          UtilsFunctionsFactory.showFlashMessage('success', "Рейсы найдены");
           console.log(resp);
+          if (resp.data.length===0){
+            UtilsFunctionsFactory.showFlashMessage('danger', "По вашему запросу ничего не найдено");
+          }
+          else {
+            UtilsFunctionsFactory.showFlashMessage('success', "Рейсы найдены");
+          }
           $scope.trips = resp.data;
           $scope.tripParams.searchString = "";
         },

@@ -19,8 +19,9 @@
          },
          resolve: {
            freeTickets: function ($http,$location) {
-             // var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/search";
-             var url = $location.protocol() + "://" + $location.host() + ":" + "8080" + "/getFreeTickets";
+              var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/getFreeTickets";
+             //var url = $location.protocol() + "://" + $location.host() + ":" + "8080" + "/getFreeTickets";
+             console.log(url);
              return $http({
                method: "GET",
                url: url,
@@ -50,8 +51,23 @@
            controllerAs: 'ticketsCtrl'
          }
        },
-       resolve: {}
-     })
+       resolve: {
+         userTickets:function ($http,$location) {
+           var ticketsParams = {
+             userId: 1,// todo брать идентификатов или др инфо о пользовател из SpringSecurity
+             ticketId: 0
+           };
+            var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/load";
+           //var url = $location.protocol() + "://" + $location.host() + ":" + "8080" + "/load";
+           console.log(url);
+          return $http({
+             method: "GET",
+             url: url,
+             params: ticketsParams
+           });
+         }
+       }
+     });
 
     $urlRouterProvider.otherwise(function ($injector, $location) {
       console.log($injector, $location);

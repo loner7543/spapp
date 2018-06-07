@@ -1,7 +1,6 @@
 <div class="flashMsg"><flash-message></flash-message></div>
 <div>
   <h3>Просмотр билетов пользователя</h3>
-  <button class="btn btn-primary" ng-click="showUserTickets()">Показать билеты</button><!--Добавить кнопку отмены брони-->
   <table class="table table-hover">
     <thead>
     <tr>
@@ -11,8 +10,10 @@
     </thead>
     <tbody>
     <tr ng-repeat="ticket in tickets">
+      <td class="hideTd">{{ticket.id}}</td>
       <td>{{ticket.number}}</td>
       <td>{{ticket.price}}</td>
+      <td><button ng-click="cancelReservation(this)" class="btn btn-danger">Отменить бронь</button></td>
     </tr>
     </tbody>
   </table>

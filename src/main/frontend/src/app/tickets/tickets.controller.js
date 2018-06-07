@@ -4,33 +4,37 @@
     .controller('TicketsController', TicketsController);
 
   /** @ngInject */
-  function TicketsController($scope, $http, $state, $location, UtilsFunctionsFactory) {
+  function TicketsController($scope, $http, $state, $location, UtilsFunctionsFactory,userTickets) {
     var vm = this;
+    $scope.tickets = userTickets.data;
 
     $scope.ticketsParams = {
-      userId: 1// todo брать идентификатов или др инфо о пользовател из SpringSecurity
+      userId: 1,// todo брать идентификатов или др инфо о пользовател из SpringSecurity
+      ticketId: 0
     };
 
-    $scope.showUserTickets = function () {
-      // var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/search";
-      var url = $location.protocol() + "://" + $location.host() + ":" + "8080" + "/load";
+    $scope.deleteParams = {
+      ticketId:0
+    };
+
+    $scope.cancelReservation = function (scope) {
+      $scope.deleteParams.ticketId = scope.ticket.id;
+       var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/cancelReservation";
+      //var url = $location.protocol() + "://" + $location.host() + ":" + "8080" + "/cancelReservation";
+      console.log(url);
       $http({
-        method: "GET",
+        method: "POST",
         url: url,
-        params: $scope.ticketsParams
+        params: $scope.deleteParams
       }).then(function (resp) {
-          UtilsFunctionsFactory.showFlashMessage('success', "Билеты загружены");
-          $scope.tickets = resp.data;
+          UtilsFunctionsFactory.showFlashMessage('success', "Бронь отменена");
+          $state.reload();
           console.log("Success resp", resp);
         },
         function (result) {
-          UtilsFunctionsFactory.showFlashMessage('danger', "Ошибка при загрузке билетов");
+          UtilsFunctionsFactory.showFlashMessage('danger', "Произошла ошибка при отмене брони");
           console.error(result, result.data);
         });
-    };
-
-    $scope.cancelReservation = function () {
-
     };
   }
 

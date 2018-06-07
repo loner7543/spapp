@@ -10,9 +10,10 @@
     </thead>
     <tbody>
     <tr ng-repeat="ticket in tickets">
+       <td class="hideTd">{{ticket.id}}</td>
       <td>{{ticket.number}}</td>
       <td>{{ticket.price}}</td>
-      <td><button ng-click="createReservation()" class="btn btn-primary">Забронировать</button></td>
+      <td><button ng-click="createReservation(this)" class="btn btn-primary">Забронировать</button></td>
     </tr>
     </tbody>
   </table>

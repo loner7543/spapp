@@ -8,6 +8,8 @@ import com.alma.ticket.vo.TripVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -48,14 +50,30 @@ public class MainController {
     }
 
     @RequestMapping(value = "/createReservation", method = RequestMethod.POST)
-    public void createReservation(@RequestParam(value = "ticketId") Long ticketId,
-                                  @RequestParam(value = "userId") Long userId) {
-        ticketService.createReservation(ticketId, userId);
+    public ResponseEntity createReservation(@RequestParam(value = "ticketId") Long ticketId,
+                                            @RequestParam(value = "userId") Long userId) {
+        try{
+            ticketService.createReservation(ticketId, userId);
+            return new ResponseEntity(HttpStatus.OK);
+
+        }
+        catch (Exception e){
+            logger.error("Ошибка наложения брони", e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    @RequestMapping(value = "/cancelReservation", method = RequestMethod.DELETE)
-    public void cancelReservation(@RequestParam(value = "ticketId") Long ticketId) {
-        ticketService.cancelReservation(ticketId);
+    @RequestMapping(value = "/cancelReservation", method = RequestMethod.POST)
+    public ResponseEntity cancelReservation(@RequestParam(value = "ticketId") Long ticketId) {
+        try{
+            ticketService.cancelReservation(ticketId);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        catch (Exception e){
+            logger.error("Ошибка при попытке отмены брони", e);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     @RequestMapping(value = "/load", method = RequestMethod.GET)
