@@ -43,7 +43,8 @@ public class MainController {
         List<Ticket> free = ticketService.getFreeTickets();
         List<TicketVO> ticketVOList = new ArrayList<>();
         for (Ticket ticket:free){
-            TicketVO vo = new TicketVO(ticket.getId(),ticket.getNumber(),ticket.getPrice());
+            TripVO tripVO = new TripVO(ticket.getTrip().getId(),ticket.getTrip().getFrom(),ticket.getTrip().getTo(),ticket.getTrip().getTripNumber());
+            TicketVO vo = new TicketVO(ticket.getId(),ticket.getNumber(),ticket.getPrice(),tripVO);
             ticketVOList.add(vo);
         }
         return ticketVOList;
@@ -81,7 +82,8 @@ public class MainController {
         List<Ticket> tickets = ticketService.getAllTicketsForUser(userId);
         List<TicketVO> ticketVOList = new ArrayList<>();
         for (Ticket ticket:tickets){
-            TicketVO vo = new TicketVO(ticket.getId(),ticket.getNumber(),ticket.getPrice());
+            TripVO tripVO = new TripVO(ticket.getTrip().getId(),ticket.getTrip().getFrom(),ticket.getTrip().getTo(),ticket.getTrip().getTripNumber());
+            TicketVO vo = new TicketVO(ticket.getId(),ticket.getNumber(),ticket.getPrice(),tripVO);
             ticketVOList.add(vo);
         }
         return ticketVOList;

@@ -16,10 +16,13 @@ public class TicketVO implements Serializable {
      * */
     private int price;
 
-    public TicketVO(Long id, int number, int price) {
+    private TripVO tripVO;
+
+    public TicketVO(Long id, int number, int price, TripVO tripVO) {
         this.id = id;
         this.number = number;
         this.price = price;
+        this.tripVO = tripVO;
     }
 
     public Long getId() {
@@ -44,5 +47,13 @@ public class TicketVO implements Serializable {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public TripVO getTripVO() {
+        return tripVO;
+    }
+
+    public void setTripVO(TripVO tripVO) {
+        this.tripVO = tripVO;
     }
 }

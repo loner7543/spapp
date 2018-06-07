@@ -6,6 +6,7 @@
     <tr>
       <th>Номер билета</th>
       <th>Цена</th>
+      <th>Откуда/Куда</th>
     </tr>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
        <td class="hideTd">{{ticket.id}}</td>
       <td>{{ticket.number}}</td>
       <td>{{ticket.price}}</td>
+      <td>{{ticket.tripVO.from}} - {{ticket.tripVO.to}}</td>
       <td><button ng-click="createReservation(this)" class="btn btn-primary">Забронировать</button></td>
     </tr>
     </tbody>

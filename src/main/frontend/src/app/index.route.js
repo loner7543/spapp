@@ -54,7 +54,7 @@
        resolve: {
          userTickets:function ($http,$location) {
            var ticketsParams = {
-             userId: 1,// todo брать идентификатов или др инфо о пользовател из SpringSecurity
+             userId: 1,// todo
              ticketId: 0
            };
             var url = $location.protocol()+"://"+$location.host()+":"+$location.port()+"/load";

@@ -6,6 +6,7 @@
   /** @ngInject */
   function TicketsController($scope, $http, $state, $location, UtilsFunctionsFactory,userTickets) {
     var vm = this;
+    console.log(userTickets);
     $scope.tickets = userTickets.data;
 
     $scope.ticketsParams = {

@@ -31,6 +31,7 @@ public class TicketDAO extends BaseDAO {
         criteria.select(root).where(builder.equal(root.get("user"), userId));// select * from ticket where user_ID = PARAM
         Query<Ticket> q=session.createQuery(criteria);
         List<Ticket> resList = q.getResultList();
+        resList.forEach(ticket -> ticket.getTrip().getFrom());// lazy exception
         if (resList.size()!=0){
             logger.info("Билеты получены");
         }
@@ -110,6 +111,7 @@ public class TicketDAO extends BaseDAO {
         criteria.select(root).where(builder.isNull(root.get("user")));// select * from ticket where user_ID = null
         Query<Ticket> q=session.createQuery(criteria);
         List<Ticket> resList = q.getResultList();
+        resList.forEach(ticket -> ticket.getTrip().getFrom());//lazy exception
         if (resList.size()!=0){
             logger.info("Свободные билеты получены");
         }
