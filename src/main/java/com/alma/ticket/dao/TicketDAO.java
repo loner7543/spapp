@@ -24,6 +24,7 @@ public class TicketDAO extends BaseDAO {
     * Возвращает все билеты указанного пользователя
     * */
     public List<Ticket> getAllTicketsByUser(Long userId) {
+        logger.info("====Получение свободных билетов====");
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Ticket> criteria = builder.createQuery(Ticket.class);
@@ -45,6 +46,7 @@ public class TicketDAO extends BaseDAO {
     * Отменяет бронь билета
     * */
    public void cancelReservation(Long ticketId){
+       logger.info("===Отмена брони начата==");
        Session session = sessionFactory.getCurrentSession();
        Ticket ticket = session.get(Ticket.class,ticketId);
        ticket.setUser(null);
@@ -57,6 +59,7 @@ public class TicketDAO extends BaseDAO {
    * Создает бронь на билет
    * */
    public void createReservation(Long userId,Long ticketId){
+       logger.info("===Создание брони начато==");
        Session session = sessionFactory.getCurrentSession();
        Ticket ticket = session.get(Ticket.class,ticketId);
        User user = session.get(User.class,userId);
