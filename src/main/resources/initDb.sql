@@ -3,7 +3,7 @@
 insert into trip_point values(1,'Ярославль',1);
 insert into trip_point values(2,'Калуга',1);
 
-insert into app_user values(1,'alma','alma','authorized');
+insert into app_user values(1,'alma','alma','AUTHORIZED_USER');
 
 insert into ticket values(1,111,222,1,1);
 
